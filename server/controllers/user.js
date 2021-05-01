@@ -1,4 +1,4 @@
-const User = require("../models/user")
+const User = require("../models/user").User
 const mongoose = require("mongoose")
 const crypto = require("crypto")
 const bcrypt = require("bcryptjs")

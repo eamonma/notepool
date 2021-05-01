@@ -1,5 +1,6 @@
 import React, { useState, useContext, useCallback } from "react"
 import { useDropzone } from "react-dropzone"
+import Select from "react-select"
 import axios from "axios"
 import { AppContext } from "../AppContext"
 import s from "../styles/upload.module.scss"
@@ -10,8 +11,13 @@ import { withRouter } from "react-router-dom"
 
 const Upload = () => {
   const [user] = useContext(AppContext).user
+  const options = user.listOfCourses.map((course) => ({
+    value: course,
+    label: course,
+  }))
+  const [course, setCourse] = useState(null)
+
   const [title, setTitle] = useState("")
-  const [course, setCourse] = useState("")
   const [file, setFile] = useState(null)
   const [error, setError] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -47,10 +53,10 @@ const Upload = () => {
   }
 
   return (
-    <div className="form component">
+    <div className={`${s.Upload} form component`}>
       <h1>Contribute as {user.name && user.name.username}</h1>
       <form onSubmit={handleSubmit}>
-        <div className="flex-row">
+        <div className={`${s.top} flex-row`}>
           <div>
             <label htmlFor="title">Title</label>
             <input
@@ -63,15 +69,16 @@ const Upload = () => {
               disabled={loading}
             />
           </div>
-          <div>
+          <div className={s.selector}>
             <label htmlFor="course">Course</label>
-            <input
-              type="text"
-              name="course"
-              onChange={({ target }) => {
-                setCourse(target.value)
-              }}
-              disabled={loading}
+            <Select
+              defaultValue={course}
+              value={course}
+              onChange={setCourse}
+              options={options}
+              isDisabled={loading}
+              isSearchable
+              className={s.selectorElement}
             />
           </div>
         </div>

@@ -11,6 +11,7 @@ import { AppProvider, AppContext } from "./AppContext"
 import Logout from "./components/Logout"
 import PrivateRoute from "./PrivateRoute"
 import Login from "./components/Login"
+import Join from "./components/Join"
 import Footer from "./components/Footer"
 
 // axios.defaults.baseURL = "http://localhost"
@@ -151,6 +152,7 @@ const AppRouter = () => {
           component={() => <Logout unauthenticate={unauthenticate} />}
         />
         <PrivateRoute path="/upload" component={() => <Upload />} />
+        <PrivateRoute path="/join" component={() => <Join />} />
       </Switch>
       <Footer />
     </Fragment>

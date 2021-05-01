@@ -2,10 +2,10 @@ import React, { useContext, Fragment, useState, useRef } from "react"
 import axios from "axios"
 import { Redirect, withRouter, Link } from "react-router-dom"
 import ClipLoader from "./ClipLoader"
-import { AppContext } from "../AppContext"
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faArrowCircleRight } from "@fortawesome/free-solid-svg-icons"
+
+import { AppContext } from "../AppContext"
 
 const Login = (props) => {
   const [authenticated, setAuthenticated] = useContext(AppContext).authenticated

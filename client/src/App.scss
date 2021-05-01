@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Lato:wght@900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap");
 @import "./settings.scss";
 
 html,
@@ -108,4 +108,10 @@ nav {
   display: flex;
   align-items: center;
   animation: dropIn 1s ease forwards;
+}
+
+#searchbox {
+  input {
+    height: 3.2rem;
+  }
 }

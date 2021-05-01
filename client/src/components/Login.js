@@ -69,7 +69,7 @@ const Login = (props) => {
         </div>
         <div className="submit-group">
           <div>
-            <Link to="/register">Register</Link>
+            <Link to="/register" id="register-link">Register</Link>
           </div>
           <div className={`${error && "wrong"} loading-group special`}>
             <button disabled={loading || !email || !password} type="submit">

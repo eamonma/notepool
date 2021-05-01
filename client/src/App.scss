@@ -1,5 +1,4 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap");
-@import "./settings.scss";
 
 html,
 body {
@@ -42,76 +41,4 @@ body {
 
 .App-link {
   color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.nav-button {
-  font-family: "Lato";
-  text-decoration: none;
-  margin: 0 1em;
-  color: #eee;
-
-  &:hover {
-    color: rgb(117, 162, 230);
-  }
-}
-
-nav {
-  display: flex;
-  align-items: center;
-  background-color: $navbar;
-  height: 10rem;
-  display: flex;
-  justify-content: space-between;
-
-  ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    display: flex;
-
-    li {
-      font-size: 2.2rem;
-    }
-  }
-}
-
-#logo img {
-  height: 6rem;
-}
-
-#logo {
-  margin-left: 3rem;
-}
-
-@keyframes dropIn {
-  from {
-      transform: translateY(-10px);
-      opacity: 0;
-  }
-  to {
-      transform: translateY(0);
-      opacity: 1;
-  }
-}
-
-#home-desc {
-  display: flex;
-  align-items: center;
-  animation: dropIn 1s ease forwards;
-}
-
-#searchbox {
-  input {
-    height: 3.2rem;
-  }
 }

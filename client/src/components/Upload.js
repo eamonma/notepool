@@ -8,7 +8,7 @@ const Upload = () => {
   return (
     <div>
       <h1>Upload</h1>
-      <form action="/upload" method="POST">
+      <form action="http://localhost:4000/api/upload" method="POST">
         <label htmlFor="title">Title</label>
         <input
           type="text"

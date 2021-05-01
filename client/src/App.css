@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap');
+
 .App {
   text-align: center;
 }
@@ -35,4 +37,21 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+
+.nav-button {
+  font-family: "Lato";
+  text-decoration: none;
+  margin: 0 1em;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  background-color: #282c34;
+}
+
+#logo img {
+  height: 4rem;
 }

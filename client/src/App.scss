@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap");
 
 html,
 body {
@@ -13,8 +13,8 @@ body {
   box-sizing: border-box;
 }
 
-.App {
-  text-align: center;
+#root {
+  font-size: 1.6rem;
 }
 
 .App-logo {
@@ -52,7 +52,6 @@ body {
   }
 }
 
-
 .nav-button {
   font-family: "Lato";
   text-decoration: none;
@@ -64,14 +63,22 @@ nav {
   align-items: center;
   background-color: #282c34;
   height: 10rem;
-}
+  display: flex;
+  justify-content: space-between;
 
-nav ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: #333;
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    display: flex;
+
+    a,
+    a:visited,
+    a:active {
+      color: #eee;
+    }
+  }
 }
 
 #logo img {

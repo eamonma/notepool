@@ -1,23 +1,10 @@
 @import "./settings.scss";
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 .nav-button {
-  font-family: "Lato";
+  font-family: "PT Sans", sans-serif;
   text-decoration: none;
   margin: 0 1rem;
   color: #fff;
-
-  &:hover {
-    color: rgb(117, 162, 230);
-  }
 }
 
 .nav {
@@ -57,16 +44,6 @@
   margin-left: 1.5rem;
 }
 
-@keyframes dropIn {
-  from {
-    transform: translateY(-10px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
 .active-nav {
   // color: #aaa;
   background-color: #888;

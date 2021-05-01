@@ -6,26 +6,16 @@ import Navigation from "./components/Navigation"
 import Upload from "./components/Upload"
 import Register from "./components/Register"
 
-import a from "axios"
+import axios from "axios"
 import { AppProvider, AppContext } from "./AppContext"
 import Logout from "./components/Logout"
 import PrivateRoute from "./PrivateRoute"
+import Login from "./components/Login"
 
 // axios.defaults.baseURL = "http://localhost"
 // axios.defaults.proxy.port = 4000
 
-process.env.PROTOCOL = process.env.PROTOCOL || "http"
-process.env.DOMAIN = process.env.DOMAIN || "localhost"
-
-const HttpsProxyAgent = require("https-proxy-agent")
-
-const httpsAgent = new HttpsProxyAgent({
-  host: "localhost",
-  port: "4000",
-})
-
-//use axios as you normally would, but specify httpsAgent in the config
-const axios = a.create({ httpsAgent })
+axios.defaults.baseURL = "http://localhost:4000"
 
 const App = () => {
   // const [authenticated, setAuthenticated] = useContext(AppContext).authenticated
@@ -40,30 +30,14 @@ const App = () => {
   )
 }
 
+axios.get("/").then((res) => {
+  console.log(res.status)
+})
+
 const AppRouter = () => {
   const [authenticated, setAuthenticated] = useContext(AppContext).authenticated
   const [token, setToken] = useContext(AppContext).token
   const [user, setUser] = useContext(AppContext).user
-
-  useEffect(() => {
-    try {
-      const state = JSON.parse(localStorage.getItem("state"))
-      setAuthenticated(state.authenticated)
-      setToken(state.token)
-      setUser(state.user)
-
-      axios.interceptors.request.use((config) => {
-        config.headers.Authorization = `Bearer ${this.state.token}`
-
-        return config
-      })
-
-      axios.post(`http://localhost:4000/api/isValidToken`).catch((error) => {
-        unauthenticate()
-      })
-    } catch (error) {}
-    return () => {}
-  }, [])
 
   const authenticate = (user, token) => {
     try {
@@ -109,22 +83,45 @@ const AppRouter = () => {
 
   const unauthenticate = () => {
     try {
-      this.setState(
-        () => ({
+      setAuthenticated(false)
+      setToken("")
+      setUser({})
+
+      localStorage.setItem(
+        "state",
+        JSON.stringify({
           authenticated: false,
-          user: {},
           token: "",
-        }),
-        () => {
-          localStorage.setItem("state", JSON.stringify(this.state))
-        }
+          user: {},
+        })
       )
+
       axios.interceptors.request.use((config) => {
         config.headers.Authorization = undefined
         return config
       })
     } catch (e) {}
   }
+
+  useEffect(() => {
+    try {
+      const state = JSON.parse(localStorage.getItem("state"))
+      setAuthenticated(state.authenticated)
+      setToken(state.token)
+      setUser(state.user)
+
+      axios.interceptors.request.use((config) => {
+        config.headers.Authorization = `Bearer ${state.token}`
+
+        return config
+      })
+
+      axios.post(`/api/isValidToken`).catch((error) => {
+        unauthenticate()
+      })
+    } catch (error) {}
+    return () => {}
+  }, [])
 
   return (
     <Fragment>
@@ -140,7 +137,18 @@ const AppRouter = () => {
             <Register authenticate={authenticate} {...props} />
           )}
         />
-        <PrivateRoute path="/logout" exact component={() => <Logout />} />
+        <Route
+          path="/login"
+          exact
+          component={(props) => (
+            <Login authenticate={authenticate} {...props} />
+          )}
+        />
+        <PrivateRoute
+          path="/logout"
+          exact
+          component={() => <Logout unauthenticate={unauthenticate} />}
+        />
         <PrivateRoute path="/upload">
           <Upload />
         </PrivateRoute>

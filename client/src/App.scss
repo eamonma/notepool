@@ -1,5 +1,6 @@
-@import url("https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap");
-
+// @import url("https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+@import "./styles/settings.scss";
 html,
 body {
   min-width: 100%;
@@ -7,6 +8,7 @@ body {
   box-sizing: border-box;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   font-size: 62.5%;
+  font-family: "PT Sans", sans-serif;
 }
 
 * {
@@ -17,28 +19,176 @@ body {
   font-size: 1.6rem;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
+button {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  border-radius: $s;
+  font-weight: 600;
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+  &:disabled,
+  &:disabled:hover {
+    cursor: not-allowed;
+    color: #888;
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+a.button,
+button {
+  display: inline-block;
+  padding: $s $xs;
+  background-color: $secondary;
 }
 
-.App-link {
-  color: #61dafb;
+a.button,
+a.button:visited,
+a.button:active,
+button {
+  color: $p-link;
+  text-decoration: none;
+  transition: 0.2s;
+}
+
+a.button:hover,
+button:hover {
+  color: $s-link;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    margin: 0.1rem;
+
+    a {
+      display: inline-block;
+      width: auto;
+    }
+  }
+}
+
+form {
+  margin-bottom: $s;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+  align-items: flex-start;
+  // max-width: 5 * $xl;
+
+  &.wrong {
+    animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  }
+
+  .type-select,
+  .select-component {
+    font-size: $s;
+    margin-top: $xs;
+
+    & * {
+      box-sizing: content-box;
+    }
+  }
+
+  .type-select > div {
+    border-radius: 8px !important;
+    box-shadow: 2px 2px 8px 4px $tertiary;
+    border: none !important;
+  }
+
+  input,
+  select {
+    font-size: $s !important;
+    line-height: $s + 0.5rem;
+    padding: $xs;
+    margin: $xs 0;
+    transition: 0.2s;
+    // min-width: $xl;
+    // width: 100%;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="file"],
+  input[type="date"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+
+  input,
+  .select-component {
+    border-radius: 8px;
+    background: rgb(246, 246, 246);
+    box-shadow: none;
+    border: 2px solid #fff;
+
+    &.danger {
+      border: 1px solid $danger;
+      outline: none;
+    }
+  }
+
+  input:disabled {
+    cursor: not-allowed;
+  }
+
+  input:focus {
+    border: 2px solid rgb(136, 177, 253);
+    outline: none;
+  }
+
+  input.invalid {
+    border: 2px solid $danger;
+    outline: none;
+    // outline-offset: 2px;
+  }
+
+  .inline-input {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    & > * {
+      flex: 1;
+    }
+  }
+
+  .select-component {
+    div {
+      overflow: hidden;
+    }
+
+    & > div {
+      border: 2px solid #fff;
+      background: rgb(246, 246, 246);
+      border-radius: 8px;
+      &:hover {
+        border: inherit;
+        // border-color: rgb(136, 177, 253);
+      }
+    }
+  }
+
+  ul {
+    flex: 1;
+    width: 100%;
+    max-width: 3 * $xl;
+    & li {
+      display: flex;
+      flex-direction: column;
+      margin: $xs 0;
+
+      & > label,
+      legend {
+        font-size: $s + 0.2rem;
+      }
+    }
+  }
 }

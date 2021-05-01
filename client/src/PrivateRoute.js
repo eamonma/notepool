@@ -2,11 +2,10 @@ import { Route, Redirect } from "react-router-dom"
 import { useContext } from "react"
 import { AppContext } from "./AppContext"
 
-const PrivateRoute = ({ component: Component, ...rest }) => {
+const PrivateRoute = ({ component: Component }) => {
   const [authenticated] = useContext(AppContext).authenticated
   return (
     <Route
-      {...rest}
       render={(props) => {
         return Component && authenticated ? (
           <Component {...props} />
@@ -14,7 +13,6 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
           <Redirect
             to={{
               pathname: "/login",
-              state: { from: props.location },
             }}
           />
         )

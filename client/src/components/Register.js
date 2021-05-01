@@ -12,7 +12,20 @@ const Register = (props) => {
   const [username, setUsername] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+
   const firstNameField = useRef(null)
+
+  // axios
+  //   .post(`/api/register`, {
+  //     firstName: "eamon",
+  //     lastName: "ma",
+  //     username: "fadsdf",
+  //     email: "m@emalfj.ca",
+  //     password: "fadsklfasdjlkf",
+  //   })
+  //   .then((res) => {
+  //     console.log(res.data)
+  //   })
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -20,7 +33,7 @@ const Register = (props) => {
     setLoading(true)
 
     axios
-      .post(`http://localhost:4000/api/register`, {
+      .post(`/api/register`, {
         firstName,
         lastName,
         username,
@@ -37,8 +50,8 @@ const Register = (props) => {
         setError(true)
         setLoading(false)
         setPassword("")
-        firstNameField.focus()
-        firstNameField.select()
+        // firstNameField.focus()
+        // firstNameField.select()
       })
   }
 
@@ -59,11 +72,7 @@ const Register = (props) => {
   ) : (
     <Fragment>
       <h1>Register</h1>
-      <form
-        action="http://localhost:4000/api/register"
-        method="post"
-        onSubmit={handleSubmit}
-      >
+      <form action="/api/register" method="post" onSubmit={handleSubmit}>
         <label htmlFor="firstName">First name</label>
         <input
           type="text"

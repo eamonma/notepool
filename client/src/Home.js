@@ -1,4 +1,4 @@
-import React, { useContext } from "react"
+import React, { useContext, Fragment } from "react"
 import { AppContext } from "./AppContext"
 
 const Home = () => {

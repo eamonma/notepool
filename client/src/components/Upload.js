@@ -6,6 +6,7 @@ import s from "../styles/upload.module.scss"
 import ClipLoader from "./ClipLoader"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faArrowCircleRight } from "@fortawesome/free-solid-svg-icons"
+import { withRouter } from 'react-router-dom'
 
 const Upload = () => {
   const [user] = useContext(AppContext).user
@@ -117,4 +118,4 @@ const Upload = () => {
   )
 }
 
-export default Upload
+export default withRouter(Upload)

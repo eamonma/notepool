@@ -1,6 +1,6 @@
 import React, { useContext } from "react"
 import { NavLink, Link } from "react-router-dom"
-import logo from ".././images/notepool_logo.png"
+import logo from ".././images/notepool_logo.svg"
 import s from "../styles/nav.module.scss"
 import { AppContext } from "../AppContext"
 

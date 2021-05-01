@@ -2,6 +2,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@400&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap");
 
+$title-font: "PT Sans";
+$text-font-main: "Lato";
+
 // Settings
 $navbar: hsl(220, 10%, 10%);
 $xs: 0.8rem;
@@ -18,5 +21,3 @@ $tertiary: rgb(238, 238, 238);
 $safety: #419c1d;
 $danger: #cf1d1d;
 
-$title-font: "PT Sans";
-$text-font-main: "Lato";

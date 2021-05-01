@@ -12,9 +12,9 @@ const Logout = (props) => {
     })
 
   return (
-    <Fragment>
+    <div className="form component">
       <h1>Logging out...</h1>
-    </Fragment>
+    </div>
   )
 }
 

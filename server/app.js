@@ -60,6 +60,10 @@ global.domain = process.env.DOMAIN || "localhost"
 
 const PORT = process.env.PORT || 4000
 
+app.get("/", (req, res) => {
+  res.sendStatus(200)
+})
+
 app.post("/upload", upload.single("file"), (req, res, next) => {
   if (!req.file) return res.status(400).send("No file uploaded.")
 

@@ -1,4 +1,4 @@
-import React, { useContext, Fragment, useState } from "react"
+import React, { useContext, Fragment, useState, useRef } from "react"
 import axios from "axios"
 import { Redirect, withRouter, Link } from "react-router-dom"
 import ClipLoader from "./ClipLoader"
@@ -13,6 +13,7 @@ const Login = (props) => {
   const [password, setPassword] = useState("")
   const [error, setError] = useState(false)
   const [loading, setLoading] = useState(false)
+  const emailField = useRef(null)
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -30,35 +31,61 @@ const Login = (props) => {
       .catch((error) => {
         setError(true)
         setLoading(false)
+        emailField.current.focus()
+        emailField.current.select()
       })
   }
 
   return authenticated ? (
     <Redirect to="/" />
   ) : (
-    <Fragment>
-      <h1>Login</h1>
-      <Link to="/register">Register</Link>
+    <div className="form component">
+      <h1>Log in</h1>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="email">Email</label>
-        <input
-          type="text"
-          name="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-
-        <label htmlFor="password">Password</label>
-        <input
-          type="password"
-          name="password"
-          vaule={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-
-        <button type="submit">Log in</button>
+        <div className="flex-row">
+          <div>
+            <label htmlFor="email">Email</label>
+            <input
+              type="text"
+              name="email"
+              id="email"
+              value={email}
+              disabled={loading}
+              ref={emailField}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+          <div>
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              vaule={password}
+              disabled={loading}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+        </div>
+        <div className="submit-group">
+          <div>
+            <Link to="/register">Register</Link>
+          </div>
+          <div className={`${error && "wrong"} loading-group special`}>
+            <button disabled={loading || !email || !password} type="submit">
+              <span className="text">Log in</span>
+              <div className="right-shape">
+                {loading ? (
+                  <ClipLoader loading={true} />
+                ) : (
+                  <FontAwesomeIcon icon={faArrowCircleRight} />
+                )}
+              </div>
+            </button>
+          </div>
+        </div>
       </form>
-    </Fragment>
+    </div>
   )
 }
 

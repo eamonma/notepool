@@ -1,7 +1,11 @@
 import React, { Component, Fragment, useContext, useRef, useState } from "react"
 import { Redirect, withRouter } from "react-router-dom"
 import axios from "axios"
+import ClipLoader from "./ClipLoader"
 import { AppContext } from "../AppContext"
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faArrowCircleRight } from "@fortawesome/free-solid-svg-icons"
 
 const Register = (props) => {
   const [authenticated, setAuthenticated] = useContext(AppContext).authenticated
@@ -50,8 +54,8 @@ const Register = (props) => {
         setError(true)
         setLoading(false)
         setPassword("")
-        // firstNameField.focus()
-        // firstNameField.select()
+        firstNameField.current.focus()
+        firstNameField.current.select()
       })
   }
 
@@ -70,54 +74,90 @@ const Register = (props) => {
   return authenticated ? (
     <Redirect to="/" />
   ) : (
-    <Fragment>
+    <div className="form component">
       <h1>Register</h1>
       <form action="/api/register" method="post" onSubmit={handleSubmit}>
-        <label htmlFor="firstName">First name</label>
-        <input
-          type="text"
-          name="firstName"
-          value={firstName}
-          ref={firstNameField}
-          autoFocus
-          onChange={(e) => setItem("firstName", e.target.value)}
-        />
-
-        <label htmlFor="lastName">Last name</label>
-        <input
-          type="text"
-          name="lastName"
-          value={lastName}
-          onChange={(e) => setItem("lastName", e.target.value)}
-        />
-
-        <label htmlFor="email">Email</label>
-        <input
-          type="email"
-          name="email"
-          value={email}
-          onChange={(e) => setItem("email", e.target.value)}
-        />
-
-        <label htmlFor="username">Username</label>
-        <input
-          type="text"
-          name="username"
-          value={username}
-          onChange={(e) => setItem("username", e.target.value)}
-        />
-
+        <div className="flex-row">
+          <div>
+            <label htmlFor="firstName">First name</label>
+            <input
+              type="text"
+              name="firstName"
+              value={firstName}
+              ref={firstNameField}
+              autoFocus
+              disabled={loading}
+              onChange={(e) => setItem("firstName", e.target.value)}
+            />
+          </div>
+          <div>
+            <label htmlFor="lastName">Last name</label>
+            <input
+              type="text"
+              name="lastName"
+              value={lastName}
+              disabled={loading}
+              onChange={(e) => setItem("lastName", e.target.value)}
+            />
+          </div>
+        </div>
+        <div className="flex-row">
+          <div>
+            <label htmlFor="email">Email</label>
+            <input
+              type="email"
+              name="email"
+              value={email}
+              disabled={loading}
+              onChange={(e) => setItem("email", e.target.value)}
+            />
+          </div>
+          <div>
+            <label htmlFor="username">Username</label>
+            <input
+              type="text"
+              name="username"
+              value={username}
+              disabled={loading}
+              onChange={(e) => setItem("username", e.target.value)}
+            />
+          </div>
+        </div>
         <label htmlFor="password">Password</label>
         <input
           type="password"
           name="password"
           value={password}
+          disabled={loading}
           onChange={(e) => setItem("password", e.target.value)}
         />
-
-        <button type="submit">Submit</button>
+        <div className="submit-group">
+          <span></span>
+          <div className={`${error && "wrong"} loading-group special`}>
+            <button
+              disabled={
+                loading ||
+                !email ||
+                !password ||
+                !firstName ||
+                !lastName ||
+                !username
+              }
+              type="submit"
+            >
+              <span className="text">Register</span>
+              <div className="right-shape">
+                {loading ? (
+                  <ClipLoader loading={true} />
+                ) : (
+                  <FontAwesomeIcon icon={faArrowCircleRight} />
+                )}
+              </div>
+            </button>
+          </div>
+        </div>
       </form>
-    </Fragment>
+    </div>
   )
 }
 

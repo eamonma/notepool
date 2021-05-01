@@ -4,12 +4,11 @@ import { AppContext } from "./AppContext"
 const Home = () => {
   const [user] = useContext(AppContext).user
   return (
-    <div id="home-desc">
-      <h1>Home</h1>
+    <div className="component" id="home-desc">
       {user.name && (
-        <p>
-          Hello, {user.name.firstName} {user.name.lastName}
-        </p>
+        <h1>
+          Hello, {user.name.firstName} {user.name.lastName}.
+        </h1>
       )}
     </div>
   )

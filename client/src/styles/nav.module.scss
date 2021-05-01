@@ -1,11 +1,11 @@
 @import "./settings.scss";
 
-.nav-button {
-  font-family: "PT Sans", sans-serif;
-  text-decoration: none;
-  margin: 0 1rem;
-  color: #fff;
-}
+// .nav-button {
+//   font-family: "PT Sans", sans-serif;
+//   text-decoration: none;
+//   margin: 0 1rem;
+//   color: #fff;
+// }
 
 .nav {
   display: flex;
@@ -26,11 +26,15 @@
       a {
         font-size: 1.6rem;
         line-height: 1.8rem;
+
         display: inline-flex;
         justify-content: center;
         align-items: center;
-        padding: 0.7rem;
+
         border-radius: 10px;
+        padding: 0.7rem;
+        margin: 0 1rem;
+        color: #fff;
       }
     }
   }

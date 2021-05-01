@@ -3,6 +3,8 @@
 @import "./styles/settings.scss";
 html,
 body {
+  margin: 0;
+  padding: 0;
   min-width: 100%;
   min-height: 100vh;
   box-sizing: border-box;
@@ -19,6 +21,29 @@ body {
   font-size: 1.6rem;
 }
 
+@keyframes shake {
+  10%,
+  90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+
+  20%,
+  80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%,
+  50%,
+  70% {
+    transform: translate3d(-5px, 0, 0);
+  }
+
+  40%,
+  60% {
+    transform: translate3d(5px, 0, 0);
+  }
+}
+
 button {
   background: none;
   border: none;
@@ -33,29 +58,37 @@ button {
   &:disabled,
   &:disabled:hover {
     cursor: not-allowed;
-    color: #888;
+    color: #ccc;
   }
+}
+
+a,
+a:visited,
+a:active,
+button {
+  // color: $p-link;
+  text-decoration: none;
+  transition: 0.2s;
+  color: inherit;
 }
 
 a.button,
 button {
   display: inline-block;
-  padding: $s $xs;
+  line-height: $s / 1.2;
+  padding: $s / 1.2 $xs;
+  color: $p-link;
   background-color: $secondary;
 }
 
-a.button,
-a.button:visited,
-a.button:active,
-button {
-  color: $p-link;
-  text-decoration: none;
-  transition: 0.2s;
+button:disabled {
+  // background-color: desaturate($color: $p-link, $amount: 10%);
 }
 
 a.button:hover,
-button:hover {
-  color: $s-link;
+button:not([disabled]):hover {
+  color: $p-link;
+  // background-color: lighten($color: $p-link, $amount: 10%);
 }
 
 ul {
@@ -73,6 +106,17 @@ ul {
   }
 }
 
+.loading-group {
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .text {
+      margin-right: $xs / 2;
+    }
+  }
+}
+
 form {
   margin-bottom: $s;
   display: flex;
@@ -81,8 +125,8 @@ form {
   align-items: flex-start;
   // max-width: 5 * $xl;
 
-  &.wrong {
-    animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  .wrong {
+    animation: shake 0.42s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
   }
 
   .type-select,
@@ -125,7 +169,7 @@ form {
   input,
   .select-component {
     border-radius: 8px;
-    background: rgb(246, 246, 246);
+    background: hsl(0, 0%, 93%);
     box-shadow: none;
     border: 2px solid #fff;
 
@@ -191,4 +235,81 @@ form {
       }
     }
   }
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  flex: 1;
+
+  &.justify-end {
+    justify-content: flex-end;
+  }
+
+  &.justify-start {
+    justify-content: flex-start;
+  }
+
+  input {
+    width: 100%;
+  }
+
+  li {
+    flex: 1 45%;
+    margin-right: 2%;
+
+    &:nth-child(2) {
+      margin-right: 0;
+    }
+  }
+
+  &.threes li {
+    flex: 1 31%;
+
+    &.small {
+      flex: 1 5%;
+    }
+
+    &:nth-child(2) {
+      margin-right: 2%;
+    }
+
+    &:nth-child(3) {
+      margin-right: 0;
+    }
+  }
+
+  hr {
+    margin: $xs 0;
+  }
+
+  &.assessment-dates {
+    li {
+      width: auto;
+      margin: $xs 0;
+    }
+  }
+}
+
+.component {
+  width: 100%;
+  padding: $m;
+  display: flex;
+  flex-direction: column;
+  &.form {
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.submit-group {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
 }

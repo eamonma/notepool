@@ -31,6 +31,7 @@ methods = {
       email,
       password,
     })
+    console.log(user)
     user.save(async (error, result) => {
       if (error) {
         req.error = error
@@ -198,6 +199,7 @@ methods = {
    * remove matching token
    */
   async logout(req, res, next) {
+    console.log("logging out")
     try {
       req.user.tokens = req.user.tokens.filter(
         (token) => token.token !== req.token

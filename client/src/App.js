@@ -149,9 +149,7 @@ const AppRouter = () => {
           exact
           component={() => <Logout unauthenticate={unauthenticate} />}
         />
-        <PrivateRoute path="/upload">
-          <Upload />
-        </PrivateRoute>
+        <PrivateRoute path="/upload" component={() => <Upload />} />
       </Switch>
     </Fragment>
   )

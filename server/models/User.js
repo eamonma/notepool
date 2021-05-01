@@ -72,19 +72,19 @@ const UserSchema = mongoose.Schema({
 
 UserSchema.plugin(uniqueValidator)
 
-// reference courses in virtual
-UserSchema.virtual("courses", {
-  ref: "Course",
-  localField: "name.username",
-  foreignField: "owner",
-})
+// // reference courses in virtual
+// UserSchema.virtual("courses", {
+//   ref: "Course",
+//   localField: "name.username",
+//   foreignField: "owner",
+// })
 
 // delete sensitive data such as password and tokens before sending
 UserSchema.methods.toJSON = function () {
   const userObject = this.toObject()
 
   delete userObject.password
-  delete user.tokens
+  delete userObject.tokens
   delete userObject.__v
 
   return userObject

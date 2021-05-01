@@ -14,18 +14,11 @@ methods = {
    * save token and user to req object
    */
   async create(req, res, next) {
-    const {
-      title,
-      firstName,
-      lastName,
-      displayName,
-      email,
-      password,
-    } = req.body
-    switch (displayName) {
+    const { firstName, lastName, username, email, password } = req.body
+    switch (username) {
       case "me":
       case "courses":
-        req.error = `name cannot be ${displayName}`
+        req.error = `name cannot be ${username}`
         next()
     }
     const user = User({
@@ -93,10 +86,7 @@ methods = {
   async login(req, res, next) {
     try {
       const { email, password } = req.body
-      const user = await User.findByCredentials(
-        req.body.email,
-        req.body.password
-      )
+      const user = await User.findByCredentials(email, password)
       user.lastLogin = Date.now()
       req.user = user
       const obj = await user.generateAuthToken()
@@ -126,7 +116,7 @@ methods = {
           // becuase name is nested
           const nameUpdates = Object.keys(req.body.name)
           return nameUpdates.forEach((nameUpdate) => {
-            if (nameUpdate === "displayName") {
+            if (nameUpdate === "username") {
               throw new Error("Display name cannot be updated.")
             }
             req.user.name[nameUpdate] = req.body.name[nameUpdate]

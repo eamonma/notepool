@@ -11,6 +11,7 @@ import { AppProvider, AppContext } from "./AppContext"
 import Logout from "./components/Logout"
 import PrivateRoute from "./PrivateRoute"
 import Login from "./components/Login"
+import Footer from "./components/Footer"
 
 // axios.defaults.baseURL = "http://localhost"
 // axios.defaults.proxy.port = 4000
@@ -151,6 +152,7 @@ const AppRouter = () => {
         />
         <PrivateRoute path="/upload" component={() => <Upload />} />
       </Switch>
+      <Footer />
     </Fragment>
   )
 }

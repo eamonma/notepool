@@ -320,3 +320,17 @@ form {
 h1, h2, h3 {
   font-family: $title-font !important;
 }
+
+footer {
+  background-color: $tertiary;
+  position: absolute;
+  bottom: 0;
+  height: 4rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  span {
+    color: $footer-text;
+  }
+}

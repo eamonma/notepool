@@ -11,6 +11,9 @@ const Navigation = () => {
         <li>
           <NavLink to="/upload">Upload</NavLink>
         </li>
+        <li>
+          <NavLink to="/register">Register</NavLink>
+        </li>
       </ul>
     </nav>
   )

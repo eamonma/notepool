@@ -5,6 +5,10 @@ const cors = require("cors")
 const multer = require("multer")
 const { v4 } = require("uuid")
 
+// const user = require("./controllers/user")
+const User = require("./models/user")
+const userAPIRouter = require("./routes/api/user")
+
 const upload = multer({
   storage: multer.memoryStorage(),
   limits: {
@@ -76,6 +80,8 @@ app.post("/upload", upload.single("file"), (req, res, next) => {
 
   blobStream.end(req.file.buffer)
 })
+
+app.use("/api", userAPIRouter)
 
 app.listen(PORT, () => {
   console.log(`Server up on ${PORT}`)

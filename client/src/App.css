@@ -1,5 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap');
 
+html,
+body {
+  min-width: 100%;
+  min-height: 100vh;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  font-size: 62.5%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
 .App {
   text-align: center;
 }
@@ -50,8 +63,21 @@ nav {
   display: flex;
   align-items: center;
   background-color: #282c34;
+  height: 10rem;
+}
+
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
 }
 
 #logo img {
-  height: 4rem;
+  height: 6rem;
+}
+
+#logo {
+  margin-left: 3rem;
 }

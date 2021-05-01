@@ -1,5 +1,5 @@
 import "./App.scss"
-import React, { useState, useContext, Fragment } from "react"
+import React, { useEffect, useContext, Fragment } from "react"
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 import Home from "./Home"
 import Navigation from "./components/Navigation"
@@ -13,6 +13,9 @@ import PrivateRoute from "./PrivateRoute"
 
 // axios.defaults.baseURL = "http://localhost"
 // axios.defaults.proxy.port = 4000
+
+process.env.PROTOCOL = process.env.PROTOCOL || "http"
+process.env.DOMAIN = process.env.DOMAIN || "localhost"
 
 const HttpsProxyAgent = require("https-proxy-agent")
 
@@ -42,6 +45,26 @@ const AppRouter = () => {
   const [token, setToken] = useContext(AppContext).token
   const [user, setUser] = useContext(AppContext).user
 
+  useEffect(() => {
+    try {
+      const state = JSON.parse(localStorage.getItem("state"))
+      setAuthenticated(state.authenticated)
+      setToken(state.token)
+      setUser(state.user)
+
+      axios.interceptors.request.use((config) => {
+        config.headers.Authorization = `Bearer ${this.state.token}`
+
+        return config
+      })
+
+      axios.post(`http://localhost:4000/api/isValidToken`).catch((error) => {
+        unauthenticate()
+      })
+    } catch (error) {}
+    return () => {}
+  }, [])
+
   const authenticate = (user, token) => {
     try {
       if (!authenticated) {
@@ -55,7 +78,7 @@ const AppRouter = () => {
         localStorage.setItem(
           "state",
           JSON.stringify({
-            authenticated,
+            authenticated: true,
             token,
             user,
           })

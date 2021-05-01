@@ -20,7 +20,7 @@ const Register = (props) => {
     setLoading(true)
 
     axios
-      .post("http://localhost:4000/api/register", {
+      .post(`http://localhost:4000/api/register`, {
         firstName,
         lastName,
         username,

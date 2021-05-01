@@ -1,4 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@900&display=swap");
+@import "./settings.scss";
 
 html,
 body {
@@ -56,12 +57,17 @@ body {
   font-family: "Lato";
   text-decoration: none;
   margin: 0 1em;
+  color: #eee;
+
+  &:hover {
+    color: rgb(117, 162, 230);
+  }
 }
 
 nav {
   display: flex;
   align-items: center;
-  background-color: #282c34;
+  background-color: $navbar;
   height: 10rem;
   display: flex;
   justify-content: space-between;
@@ -73,10 +79,8 @@ nav {
     overflow: hidden;
     display: flex;
 
-    a,
-    a:visited,
-    a:active {
-      color: #eee;
+    li {
+      font-size: 2.2rem;
     }
   }
 }
@@ -87,4 +91,21 @@ nav {
 
 #logo {
   margin-left: 3rem;
+}
+
+@keyframes dropIn {
+  from {
+      transform: translateY(-10px);
+      opacity: 0;
+  }
+  to {
+      transform: translateY(0);
+      opacity: 1;
+  }
+}
+
+#home-desc {
+  display: flex;
+  align-items: center;
+  animation: dropIn 1s ease forwards;
 }

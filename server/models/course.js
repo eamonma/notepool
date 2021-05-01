@@ -1,39 +1,21 @@
 const mongoose = require("mongoose")
-const User = require("./user")
+const User = require("./user").UserSchema
 const uniqueValidator = require("mongoose-unique-validator")
 
 const CourseSchema = mongoose.Schema({
   _id: mongoose.Schema.Types.ObjectId,
-  info: {
-    name: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-    archived: {
-      type: String,
-      required: false,
-      default: "",
-    },
+  name: {
+    type: String,
+    required: true,
+    trim: true,
+    unique: true,
   },
   files: [
     {
-      title: {
-        type: String,
-        required: true,
-      },
-      author: {
-        type: User,
-        required: true,
-      },
+      type: String,
+      ref: "File",
     },
   ],
-})
-
-CourseSchema.virtual("courses", {
-  ref: "",
-  localField: "name.username",
-  foreignField: "owner",
 })
 
 CourseSchema.plugin(uniqueValidator)

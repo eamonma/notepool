@@ -5,14 +5,14 @@ import { AppContext } from "../AppContext"
 import s from "../styles/upload.module.scss"
 import ClipLoader from "./ClipLoader"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faArrowCircleRight } from "@fortawesome/free-solid-svg-icons"
-import { withRouter } from 'react-router-dom'
+import { faArrowCircleRight, faUpload } from "@fortawesome/free-solid-svg-icons"
+import { withRouter } from "react-router-dom"
 
 const Upload = () => {
   const [user] = useContext(AppContext).user
   const [title, setTitle] = useState("")
   const [course, setCourse] = useState("")
-  const [file, setFile] = useState([])
+  const [file, setFile] = useState(null)
   const [error, setError] = useState(false)
   const [loading, setLoading] = useState(false)
 
@@ -32,21 +32,18 @@ const Upload = () => {
     const formData = new FormData()
     formData.append("title", title)
     formData.append("course", course)
-    formData.append("file", file)
+    formData.append("file", file[0])
 
-    // axios
-    //   .post("/api/upload", {
-    //     email,
-    //     password,
-    //   })
-    //   .then((res) => {
-    //     const { user, token } = res.data
-    //     props.authenticate(user, token)
-    //   })
-    //   .catch((error) => {
-    //     setError(true)
-    //     setLoading(false)
-    //   })
+    axios
+      .post("/api/files", formData)
+      .then((res) => {
+        setLoading(false)
+        console.log(res.data)
+      })
+      .catch((error) => {
+        setError(true)
+        setLoading(false)
+      })
   }
 
   return (
@@ -86,7 +83,10 @@ const Upload = () => {
           ) : isDragActive ? (
             <p>Drop the file here ...</p>
           ) : (
-            <p>Drag 'n' drop a file here, or click to select a file</p>
+            <p>
+              <FontAwesomeIcon icon={faUpload} /> Drag 'n' drop a file here, or
+              click to select a file
+            </p>
           )}
         </div>
         {
@@ -99,7 +99,7 @@ const Upload = () => {
           <span></span>
           <div className={`${error && "wrong"} loading-group special`}>
             <button
-              disabled={loading || !file || !course || !title}
+              disabled={loading || !(file && file[0]) || !course || !title}
               type="submit"
             >
               <span className="text">Upload</span>

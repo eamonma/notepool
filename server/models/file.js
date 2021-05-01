@@ -2,7 +2,7 @@ const mongoose = require("mongoose")
 const validator = require("validator")
 const uniqueValidator = require("mongoose-unique-validator")
 const Course = require("./course")
-const User = require("./user")
+const User = require("./user").User
 // password imports
 const salt_rounds = 12
 const jwt = require("jsonwebtoken")
@@ -15,25 +15,23 @@ const FileSchema = mongoose.Schema({
     trim: true,
   },
   course: {
-    type: Course,
+    type: String,
+    ref: "Course",
     required: true,
   },
   author: {
-    type: User,
+    type: String,
+    ref: "User",
     require: true,
   },
   url: {
     type: String,
     required: true,
   },
+  contents: {
+    type: String,
+  },
 })
-
-// // reference courses in virtual
-// FileSchema.virtual("courses", {
-//   ref: "Course",
-//   localField: "name.username",
-//   foreignField: "owner",
-// })
 
 const File = mongoose.model("File", FileSchema)
 

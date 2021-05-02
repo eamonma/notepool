@@ -78,7 +78,8 @@ button {
   line-height: $s / 1.2;
   padding: $s / 1.2 $xs;
   color: $p-link;
-  background-color: $secondary;
+  // background-color: $secondary;
+  background-color: #f5f5f5;
 }
 
 button:disabled {
@@ -175,7 +176,7 @@ form {
   input,
   .select-component {
     border-radius: 8px;
-    background: hsl(0, 0%, 93%);
+    background-color: #f5f5f5;
     box-shadow: none;
     border: 2px solid #fff;
     box-sizing: border-box;
@@ -352,4 +353,9 @@ footer {
   span {
     color: $footer-text;
   }
+}
+
+.link {
+  font-style: italic;
+  color: $secondary;
 }

@@ -1,7 +1,11 @@
 import React, { useEffect, useState, useRef } from "react"
 import axios from "axios"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faDownload, faShare } from "@fortawesome/free-solid-svg-icons"
+import {
+  faDownload,
+  faShare,
+  faArrowLeft,
+} from "@fortawesome/free-solid-svg-icons"
 
 import { Link } from "react-router-dom"
 import s from "../styles/file.module.scss"
@@ -30,7 +34,20 @@ const File = (props) => {
   return (
     <div className={`${s.File} component`}>
       <div className={s.heading}>
-        <Link to={`/courses/${file.course}`}>{file.course}</Link>
+        <Link
+          style={{
+            color: "#555",
+          }}
+          to={`/courses/${file.course}`}
+        >
+          <FontAwesomeIcon
+            style={{
+              marginRight: "4px",
+            }}
+            icon={faArrowLeft}
+          />
+          {file.course}
+        </Link>
         <h1
           style={{
             margin: "8px 0",
@@ -59,15 +76,17 @@ const File = (props) => {
             style={{
               textAlign: "right",
               padding: "10px",
-              borderRadius: "8px",
-              backgroundColor: "#eef5fc",
+              borderRadius: "16px",
+              color: "#3240b8",
+              fontWeight: "600",
+              background: "#f5f5f5",
             }}
             href={file.url}
           >
             Download
             <FontAwesomeIcon
               style={{
-                marginLeft: "6px",
+                marginLeft: "4px",
               }}
               icon={faDownload}
             />

@@ -7,6 +7,8 @@ import { AppContext } from "../AppContext"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faArrowCircleRight } from "@fortawesome/free-solid-svg-icons"
 
+import s from "../styles/register.module.scss"
+
 const Register = (props) => {
   const [authenticated, setAuthenticated] = useContext(AppContext).authenticated
   const [error, setError] = useState(false)
@@ -74,55 +76,46 @@ const Register = (props) => {
   return authenticated ? (
     <Redirect to="/" />
   ) : (
-    <div className="form component">
+    <div className={`component ${s.Register}`}>
       <h1>Register</h1>
       <form action="/api/register" method="post" onSubmit={handleSubmit}>
-        <div className="flex-row">
-          <div>
-            <label htmlFor="firstName">First name</label>
-            <input
-              type="text"
-              name="firstName"
-              value={firstName}
-              ref={firstNameField}
-              autoFocus
-              disabled={loading}
-              onChange={(e) => setItem("firstName", e.target.value)}
-            />
-          </div>
-          <div>
-            <label htmlFor="lastName">Last name</label>
-            <input
-              type="text"
-              name="lastName"
-              value={lastName}
-              disabled={loading}
-              onChange={(e) => setItem("lastName", e.target.value)}
-            />
-          </div>
-        </div>
-        <div className="flex-row">
-          <div>
-            <label htmlFor="email">Email</label>
-            <input
-              type="email"
-              name="email"
-              value={email}
-              disabled={loading}
-              onChange={(e) => setItem("email", e.target.value)}
-            />
-          </div>
-          <div>
-            <label htmlFor="username">Username</label>
-            <input
-              type="text"
-              name="username"
-              value={username}
-              disabled={loading}
-              onChange={(e) => setItem("username", e.target.value)}
-            />
-          </div>
-        </div>
+        <label htmlFor="firstName">First name</label>
+        <input
+          type="text"
+          name="firstName"
+          value={firstName}
+          ref={firstNameField}
+          autoFocus
+          disabled={loading}
+          onChange={(e) => setItem("firstName", e.target.value)}
+        />
+
+        <label htmlFor="lastName">Last name</label>
+        <input
+          type="text"
+          name="lastName"
+          value={lastName}
+          disabled={loading}
+          onChange={(e) => setItem("lastName", e.target.value)}
+        />
+
+        <label htmlFor="email">Email</label>
+        <input
+          type="email"
+          name="email"
+          value={email}
+          disabled={loading}
+          onChange={(e) => setItem("email", e.target.value)}
+        />
+        <label htmlFor="username">Username</label>
+        <input
+          type="text"
+          name="username"
+          value={username}
+          disabled={loading}
+          onChange={(e) => setItem("username", e.target.value)}
+        />
+
         <label htmlFor="password">Password</label>
         <input
           type="password"
@@ -166,6 +159,7 @@ export default withRouter(Register)
 // import React, { Component, Fragment } from "react"
 // import axios from "axios"
 // import { Redirect, withRouter, Link } from "react-router-dom"
+// import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout"
 
 // export class Login extends Component {
 //   state = {

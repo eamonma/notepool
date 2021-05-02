@@ -46,16 +46,6 @@ const Home = () => {
             </h1>
             <div className={s.container}>
               <h2>My courses</h2>
-              {localUser &&
-                localUser.listOfCourses &&
-                !localUser.listOfCourses.length && (
-                  <p>
-                    You don't have any courses. Consider{" "}
-                    <Link className="link" to="/join">
-                      joining one.
-                    </Link>
-                  </p>
-                )}
               <ul className={s.courses}>
                 {localUser &&
                   localUser.listOfCourses &&

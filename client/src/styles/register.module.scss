@@ -1,0 +1,23 @@
+@import "./settings.scss";
+
+.Register {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  form {
+    width: 600px;
+
+    & > * {
+      width: 100%;
+    }
+
+    label {
+      margin-top: $xs;
+    }
+
+    input {
+      margin: $xs 0;
+      //   padding: 0;
+    }
+  }
+}

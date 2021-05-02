@@ -1,30 +1,40 @@
-
 .container {
-    width: 40rem;
-    padding: 1rem;
-    &:hover {
-        cursor: pointer;
-        background-color: rgb(245, 245, 245);
-    }
-    display: flex;
-    box-sizing: content-box;
+  width: 38rem;
+  padding: 1.6rem;
+  background-color: rgb(245, 245, 245);
+  transition: all 0.1s cubic-bezier(0.645, 0.045, 0.355, 1);
+  &:hover {
+    cursor: pointer;
+    background-color: #eee;
+  }
+  display: flex;
+  box-sizing: content-box;
+
+  color: black;
 }
 
 .fileimg {
-    height: 100%;
-    border-radius: 1rem;
-    border-style: solid;
-    display: inline-block;
-    border-color: #bbb;
+  height: 100%;
+  border-radius: 1rem;
+  border-style: solid;
+  display: inline-block;
+  border-color: #bbb;
 }
 
 .title {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
+  flex: 1;
 }
 
 .course {
-    display: block;
-    font-weight: bold;
-    color: rgb(40, 63, 194);
+  display: block;
+  font-weight: bold;
+  color: rgb(40, 63, 194);
+}
+
+.bottom {
+  margin-top: 36px;
+  display: flex;
+  justify-content: space-between;
 }

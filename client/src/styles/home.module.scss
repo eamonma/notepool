@@ -2,15 +2,26 @@
 
 .container {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
+}
+
+h1 {
+  text-align: center;
+  margin: 0;
+  margin-bottom: $s;
+}
+
+h2 {
+  margin-bottom: $xs;
+  font-size: $m;
 }
 
 .courses {
   list-style: none;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   margin: 0;
   padding: 0;
 
@@ -19,20 +30,57 @@
 
     justify-content: center;
     align-items: center;
-    font-size: $s * 1.2;
+    font-size: $s * 1.7;
+    font-weight: 800;
 
-    margin: $s;
-    background-color: $secondary;
-    border-radius: $m;
+    margin: $xs;
+
+    &:first-of-type {
+      margin-left: 0;
+      background-color: hsl(120, 30%, 53%);
+    }
+
+    &:nth-child(2) {
+      background-color: hsl(233, 35%, 55%);
+    }
+
+    &:nth-child(3) {
+      background-color: hsl(159, 40%, 56%);
+    }
+
+    &:nth-child(4) {
+      background-color: hsl(60, 52%, 65%);
+    }
+
+    &:last-child {
+      background-color: white;
+    }
+
+    background-color: $p-link;
+    border-radius: $s * 1.7;
+
+    h3 {
+      margin: 0;
+      padding: 0;
+    }
 
     a {
       border-radius: $m;
       display: flex;
       flex: 1;
-      width: 100px;
+      width: 200px;
       height: 100px;
       justify-content: center;
       align-items: center;
+      color: #fff;
     }
+  }
+
+  .join {
+    background-color: #fff;
+    a {
+      color: #555;
+    }
+    border: 4px dashed #555;
   }
 }

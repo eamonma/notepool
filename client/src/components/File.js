@@ -31,6 +31,8 @@ const File = (props) => {
     setNumPages(numPages)
   }
 
+  console.log(props.page)
+
   return (
     <div className={`${s.File} component`}>
       <div className={s.heading}>
@@ -50,10 +52,17 @@ const File = (props) => {
         </Link>
         <h1
           style={{
-            margin: "8px 0",
+            margin: "24px 0 0 0",
           }}
         >
-          <a href={file.url}>{file.title}</a>
+          <a
+            style={{
+              color: "#000",
+            }}
+            href={file.url}
+          >
+            {file.title}
+          </a>
         </h1>
         <h3
           style={{
@@ -97,7 +106,10 @@ const File = (props) => {
         {file && file.url && file.mime === "application/pdf" ? (
           <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.4.456/build/pdf.worker.min.js">
             <div style={{ height: window.innerHeight - 60 }}>
-              <Viewer fileUrl={file.url} />
+              <Viewer
+                initialPage={props.page ? props.page - 1 : 0}
+                fileUrl={file.url}
+              />
             </div>
           </Worker>
         ) : (

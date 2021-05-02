@@ -16,15 +16,6 @@ const Navigation = () => {
           <li>
             <NavLink
               className={s["nav-button"]}
-              to="/join"
-              activeClassName={s["active-nav"]}
-            >
-              Join courses
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              className={s["nav-button"]}
               to="/upload"
               activeClassName={s["active-nav"]}
             >

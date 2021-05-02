@@ -58,7 +58,7 @@ button {
   &:disabled,
   &:disabled:hover {
     cursor: not-allowed;
-    color: #ccc;
+    // color: #ccc;
   }
 }
 
@@ -69,7 +69,7 @@ button {
   // color: $p-link;
   text-decoration: none;
   transition: 0.2s;
-  color: inherit;
+  // color: inherit;
 }
 
 a.button,
@@ -355,7 +355,9 @@ footer {
   }
 }
 
-.link {
-  font-style: italic;
-  color: $secondary;
+.link,
+a:visited,
+a:active {
+  color: $p-link;
+  // color: $;
 }

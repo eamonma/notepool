@@ -1,6 +1,11 @@
 import "./App.scss"
 import React, { useEffect, useContext, Fragment } from "react"
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  useLocation,
+} from "react-router-dom"
 import Home from "./Home"
 import Navigation from "./components/Navigation"
 import Upload from "./components/Upload"
@@ -20,6 +25,10 @@ import Footer from "./components/Footer"
 // axios.defaults.proxy.port = 4000
 
 axios.defaults.baseURL = "http://localhost:4000"
+
+function useQuery() {
+  return new URLSearchParams(useLocation().search)
+}
 
 const App = () => {
   // const [authenticated, setAuthenticated] = useContext(AppContext).authenticated
@@ -135,6 +144,8 @@ const AppRouter = () => {
     return () => {}
   }, [])
 
+  let query = useQuery()
+
   return (
     <Fragment>
       <Navigation />
@@ -164,7 +175,10 @@ const AppRouter = () => {
           path="/courses/:course"
           component={(props) => <Course {...props} />}
         />
-        <Route path="/files/:file" component={(props) => <File {...props} />} />
+        <Route
+          path="/files/:file"
+          component={(props) => <File page={query.get("page")} {...props} />}
+        />
         <PrivateRoute
           path="/logout"
           exact

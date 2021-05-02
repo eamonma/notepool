@@ -1,0 +1,30 @@
+
+.container {
+    width: 40rem;
+    padding: 1rem;
+    &:hover {
+        cursor: pointer;
+        background-color: rgb(245, 245, 245);
+    }
+    display: flex;
+    box-sizing: content-box;
+}
+
+.fileimg {
+    height: 100%;
+    border-radius: 1rem;
+    border-style: solid;
+    display: inline-block;
+    border-color: #bbb;
+}
+
+.title {
+    margin: 0;
+    padding: 0;
+}
+
+.course {
+    display: block;
+    font-weight: bold;
+    color: rgb(40, 63, 194);
+}

@@ -3,6 +3,7 @@ const validator = require("validator")
 const uniqueValidator = require("mongoose-unique-validator")
 const Course = require("./course")
 const User = require("./user").User
+const mime = require("mime-types")
 // password imports
 const salt_rounds = 12
 const jwt = require("jsonwebtoken")
@@ -30,6 +31,10 @@ const FileSchema = mongoose.Schema({
   },
   contents: {
     type: String,
+  },
+  mime: {
+    type: String,
+    required: true,
   },
 })
 

@@ -1,10 +1,12 @@
 import React, { useEffect, useState, useRef } from "react"
 import axios from "axios"
-// import { Document, Page } from "react-pdf/dist/esm/entry.webpack"
-// import { Document, Page } from "react-pdf/dist/umd/entry.webpack"
-import { usePdf } from "@mikecousins/react-pdf"
+
 import { Link } from "react-router-dom"
 import s from "../styles/file.module.scss"
+
+import Viewer, { Worker } from "@phuocng/react-pdf-viewer"
+
+import "@phuocng/react-pdf-viewer/cjs/react-pdf-viewer.css"
 
 const File = (props) => {
   useEffect(() => {
@@ -16,6 +18,13 @@ const File = (props) => {
   }, [])
 
   const [file, setFile] = useState({})
+  const [numPages, setNumPages] = useState(null)
+  const [pageNumber, setPageNumber] = useState(1)
+
+  function onDocumentLoadSuccess({ numPages }) {
+    setNumPages(numPages)
+  }
+
   return (
     <div className={`${s.File} component`}>
       <div className={s.heading}>
@@ -24,7 +33,19 @@ const File = (props) => {
           <a href={file.url}>{file.title}</a>
         </h1>
       </div>
-      <iframe frameBorder="0" className={s.iframe} src={file.url} />
+      <div className={s.iframe}>
+        {file && file.url && file.mime === "application/pdf" ? (
+          <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.4.456/build/pdf.worker.min.js">
+            <div style={{ height: window.innerHeight - 80 }}>
+              <Viewer fileUrl={file.url} />
+            </div>
+          </Worker>
+        ) : (
+          file &&
+          file.mime &&
+          file.mime.includes("image") && <img src={file.url} />
+        )}
+      </div>
     </div>
   )
 }

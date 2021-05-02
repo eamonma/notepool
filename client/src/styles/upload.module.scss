@@ -1,4 +1,52 @@
 @import "settings.scss";
+.Upload {
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+  height: calc(100vh - 6rem);
+  padding: 0;
+
+  align-items: center !important;
+  justify-content: space-between !important;
+
+  & > * {
+    height: 100%;
+  }
+
+  .iframe {
+    flex: 1;
+  }
+
+  form {
+    width: 250px;
+    padding: $s;
+    background-color: #f5f5f5;
+    transform: translate(0, 5px);
+
+    h1 {
+      margin-bottom: 0;
+    }
+
+    .selectComponent {
+      margin: $xs 0;
+    }
+
+    input,
+    .top {
+      width: 100%;
+    }
+
+    input {
+      background-color: white;
+    }
+
+    .top {
+      & > div {
+        margin: $s 0;
+      }
+    }
+  }
+}
 .drop {
   height: $l;
 
@@ -7,7 +55,8 @@
   align-items: center;
   text-align: center;
   width: 100%;
-  background-color: $secondary;
+  border-radius: 8px;
+  background-color: white;
   margin: $s 0;
 
   &:hover {
@@ -15,39 +64,39 @@
   }
 }
 
-.top {
-  width: 100%;
-}
+// .top {
+//   width: 100%;
+// }
 
-.Upload {
-  form {
-    width: 600px;
+// .Upload {
+//   form {
+//     width: 600px;
 
-    // .flex-row {
-    //   flex: 1;
-    //   width: 50%;
-    // // }
+//     // .flex-row {
+//     //   flex: 1;
+//     //   width: 50%;
+//     // // }
 
-    .selector {
-      flex: 1;
-      width: 50%;
-      //   margin-left: $s;
-    }
+//     .selector {
+//       flex: 1;
+//       width: 50%;
+//       //   margin-left: $s;
+//     }
 
-    // .selectorElement {
-    //   & > div:first-of-type {
-    //     // font-size: $s !important;
-    //     line-height: $s + 0.5rem;
-    //     height: $s;
-    //     // padding: $xs;
-    //     // margin: $xs 0;
-    //     // transition: 0.2s;
-    //     & > div:first-of-type {
-    //       //   border: 1px solid red;
-    //     //   line-height: $s + 0.5rem;
-    //     //   height: $s;
-    //     }
-    //   }
-    // }
-  }
-}
+//     // .selectorElement {
+//     //   & > div:first-of-type {
+//     //     // font-size: $s !important;
+//     //     line-height: $s + 0.5rem;
+//     //     height: $s;
+//     //     // padding: $xs;
+//     //     // margin: $xs 0;
+//     //     // transition: 0.2s;
+//     //     & > div:first-of-type {
+//     //       //   border: 1px solid red;
+//     //     //   line-height: $s + 0.5rem;
+//     //     //   height: $s;
+//     //     }
+//     //   }
+//     // }
+//   }
+// }

@@ -4,6 +4,7 @@ const mongoose = require("mongoose")
 const base64url = require("base64url")
 const { v4 } = require("uuid")
 const { format } = require("util")
+const mime = require("mime-types")
 
 const salt_rounds = 12
 
@@ -54,6 +55,7 @@ methods = {
         course,
         url: req.publicUrl,
         author: req.user.name.username,
+        mime: mime.lookup(req.file.originalname),
       })
 
       req.user.contributions.push(_id)

@@ -30,6 +30,8 @@ const Upload = () => {
   const [error, setError] = useState(false)
   const [loading, setLoading] = useState(false)
 
+  console.log(file)
+
   const onDrop = useCallback((acceptedFile) => {
     console.log(acceptedFile)
     setFile(acceptedFile)
@@ -60,29 +62,11 @@ const Upload = () => {
       })
   }
 
-  const customStyles = {
-    option: (provided, state) => ({
-      ...provided,
-      // borderBottom: "1px dotted pink",
-      // color: state.isSelected ? "red" : "blue",
-      padding: 20,
-    }),
-    control: () => ({
-      // none of react-select's styles are passed to <Control />
-      // width: 200,
-    }),
-    // singleValue: (provided, state) => {
-    //   // const opacity = state.isDisabled ? 0.5 : 1
-    //   // const transition = "opacity 300ms"
-    //   // return { ...provided, opacity, transition }
-    // },
-  }
-
   return (
     <div className={`${s.Upload} form component`}>
-      <h1>Contribute as {user.name && user.name.username}</h1>
       <form onSubmit={handleSubmit}>
-        <div className={`${s.top} flex-row`}>
+        <h1>Contribute as {user.name && user.name.username}</h1>
+        <div className={`${s.top}`}>
           <div className={s.selector}>
             <label htmlFor="course">Course</label>
             <Dropdown
@@ -92,7 +76,7 @@ const Upload = () => {
               isDisabled={loading}
               isSearchable={false}
               // styles={customStyles}
-              className="select-component"
+              className={s.selectComponent}
             />
           </div>
           <div>

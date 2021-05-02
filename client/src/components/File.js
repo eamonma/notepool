@@ -1,5 +1,7 @@
 import React, { useEffect, useState, useRef } from "react"
 import axios from "axios"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faDownload, faShare } from "@fortawesome/free-solid-svg-icons"
 
 import { Link } from "react-router-dom"
 import s from "../styles/file.module.scss"
@@ -29,9 +31,48 @@ const File = (props) => {
     <div className={`${s.File} component`}>
       <div className={s.heading}>
         <Link to={`/courses/${file.course}`}>{file.course}</Link>
-        <h1>
+        <h1
+          style={{
+            margin: "8px 0",
+          }}
+        >
           <a href={file.url}>{file.title}</a>
         </h1>
+        <h3
+          style={{
+            fontWeight: "normal",
+            marginTop: "8px",
+          }}
+        >
+          by {file.author}
+        </h3>
+        <div
+          style={{
+            marginTop: "20px",
+            alignItems: "flex-end",
+            justifyContent: "flex-end",
+            textAlign: "right",
+          }}
+          className="flex-row"
+        >
+          <a
+            style={{
+              textAlign: "right",
+              padding: "10px",
+              borderRadius: "8px",
+              backgroundColor: "#eef5fc",
+            }}
+            href={file.url}
+          >
+            Download
+            <FontAwesomeIcon
+              style={{
+                marginLeft: "6px",
+              }}
+              icon={faDownload}
+            />
+          </a>
+        </div>
       </div>
       <div className={s.iframe}>
         {file && file.url && file.mime === "application/pdf" ? (

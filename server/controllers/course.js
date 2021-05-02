@@ -58,7 +58,6 @@ const methods = {
   async getAll(req, res, next) {
     try {
       req.courses = await Course.find({})
-      console.log(req.courses)
     } catch (error) {
       req.error = error
     }

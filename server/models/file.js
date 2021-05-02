@@ -30,7 +30,7 @@ const FileSchema = mongoose.Schema({
     required: true,
   },
   contents: {
-    type: String,
+    type: Array,
   },
   mime: {
     type: String,

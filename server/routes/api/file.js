@@ -24,8 +24,8 @@ router
       return handleError(res, req.error, 401) // unauthorized
     }
 
-    console.log(req.file)
-    res.send(req.publicUrl)
+    res.send(req.savedFile)
+    // res.send(req.publicUrl)
   })
   .get("/:id", file.get, (req, res) => {
     if (req.error) {

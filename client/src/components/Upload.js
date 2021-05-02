@@ -13,6 +13,7 @@ import {
   faArrowCircleRight,
   faUpload,
   faFileUpload,
+  faFilePdf,
 } from "@fortawesome/free-solid-svg-icons"
 import { withRouter, useHistory } from "react-router-dom"
 
@@ -68,6 +69,7 @@ const Upload = () => {
     formData.append("title", title)
     formData.append("course", course.value)
     formData.append("file", file[0])
+    formData.append("mime", file[0].type)
 
     axios
       .post("/api/files", formData)
@@ -115,13 +117,20 @@ const Upload = () => {
         <div className={s.drop} {...getRootProps()}>
           <input {...getInputProps()} />
           {file && file[0] ? (
-            <p>{file[0].name}</p>
+            <p>
+              {file[0].name} : {Math.round(file[0].size / 1000)} KB
+            </p>
           ) : isDragActive ? (
             <p>Drop the file here ...</p>
           ) : (
             <p>
-              <FontAwesomeIcon icon={faUpload} /> Drag 'n' drop a file here, or
-              click to select a file
+              <FontAwesomeIcon
+                style={{
+                  marginRight: "8px",
+                }}
+                icon={faFilePdf}
+              />
+              Drag and drop your file
             </p>
           )}
         </div>
@@ -161,7 +170,18 @@ const Upload = () => {
           fileArray &&
           file[0].type &&
           file[0].type.includes("image") && (
-            <img src={URL.createObjectURL(new Blob(file[0].arrayBuffer))} />
+            <div
+              style={{
+                height: window.innerHeight - 60,
+                // display: "flex",
+              }}
+            >
+              <img
+                src={URL.createObjectURL(
+                  new Blob([fileArray.buffer], { type: file[0].type } /* (1) */)
+                )}
+              />
+            </div>
           )
         )}
       </div>

@@ -19,7 +19,7 @@ const Navigation = () => {
               to="/join"
               activeClassName={s["active-nav"]}
             >
-              Find courses
+              Join courses
             </NavLink>
           </li>
           <li>

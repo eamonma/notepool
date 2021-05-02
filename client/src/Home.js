@@ -28,7 +28,7 @@ const Home = () => {
           </h1>
           <ul>
             {contributions.map((contribution) => (
-              <li>
+              <li key={contribution._id}>
                 <Link to={`/files/${contribution._id}`}>
                   {contribution.course} | {contribution.title}
                 </Link>

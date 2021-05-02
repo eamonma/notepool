@@ -36,7 +36,7 @@ const File = (props) => {
       <div className={s.iframe}>
         {file && file.url && file.mime === "application/pdf" ? (
           <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.4.456/build/pdf.worker.min.js">
-            <div style={{ height: window.innerHeight - 80 }}>
+            <div style={{ height: window.innerHeight - 60 }}>
               <Viewer fileUrl={file.url} />
             </div>
           </Worker>

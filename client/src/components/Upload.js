@@ -1,4 +1,4 @@
-import React, { useState, useContext, useCallback, Fragment } from "react"
+import React, { useState, useContext, useCallback, useEffect } from "react"
 import { useDropzone } from "react-dropzone"
 // import Select from "react-select"
 import Dropdown from "react-dropdown"
@@ -14,10 +14,14 @@ import {
   faUpload,
   faFileUpload,
 } from "@fortawesome/free-solid-svg-icons"
-import { withRouter } from "react-router-dom"
-import { css } from "@emotion/react"
+import { withRouter, useHistory } from "react-router-dom"
+
+import Viewer, { Worker } from "@phuocng/react-pdf-viewer"
+
+import "@phuocng/react-pdf-viewer/cjs/react-pdf-viewer.css"
 
 const Upload = () => {
+  const history = useHistory()
   const [user] = useContext(AppContext).user
   const options = user.listOfCourses.map((course) => ({
     value: course,
@@ -27,15 +31,30 @@ const Upload = () => {
 
   const [title, setTitle] = useState("")
   const [file, setFile] = useState(null)
+  const [fileArray, setFileArray] = useState(null)
   const [error, setError] = useState(false)
   const [loading, setLoading] = useState(false)
 
-  console.log(file)
+  // console.log(file && file.stream)
 
-  const onDrop = useCallback((acceptedFile) => {
-    console.log(acceptedFile)
-    setFile(acceptedFile)
+  const onDrop = useCallback((acceptedFiles) => {
+    console.log(acceptedFiles)
+    setFile(acceptedFiles)
+    const reader = new FileReader()
+
+    reader.onload = (e) => {
+      let data = {}
+      data.file = new Uint8Array(reader.result)
+      setFileArray(data.file)
+    }
+
+    reader.readAsArrayBuffer(acceptedFiles[0])
   }, [])
+
+  useEffect(() => {
+    console.log()
+  }, [file])
+
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     multiple: false,
@@ -54,7 +73,7 @@ const Upload = () => {
       .post("/api/files", formData)
       .then((res) => {
         setLoading(false)
-        console.log(res.data)
+        history.push(`/files/${res.data._id}`)
       })
       .catch((error) => {
         setError(true)
@@ -131,6 +150,21 @@ const Upload = () => {
           </div>
         </div>
       </form>
+      <div className={s.iframe}>
+        {fileArray && file[0].type === "application/pdf" ? (
+          <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.4.456/build/pdf.worker.min.js">
+            <div style={{ height: window.innerHeight - 60 }}>
+              <Viewer fileUrl={fileArray} />
+            </div>
+          </Worker>
+        ) : (
+          fileArray &&
+          file[0].type &&
+          file[0].type.includes("image") && (
+            <img src={URL.createObjectURL(new Blob(file[0].arrayBuffer))} />
+          )
+        )}
+      </div>
     </div>
   )
 }

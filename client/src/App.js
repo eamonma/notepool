@@ -12,6 +12,8 @@ import Logout from "./components/Logout"
 import PrivateRoute from "./PrivateRoute"
 import Login from "./components/Login"
 import Join from "./components/Join"
+import Course from "./components/Course"
+import File from "./components/File"
 import Footer from "./components/Footer"
 
 // axios.defaults.baseURL = "http://localhost"
@@ -32,34 +34,34 @@ const App = () => {
   )
 }
 
-axios.get("/").then((res) => {
-  console.log(res.status)
-})
-
 const AppRouter = () => {
   const [authenticated, setAuthenticated] = useContext(AppContext).authenticated
   const [token, setToken] = useContext(AppContext).token
   const [user, setUser] = useContext(AppContext).user
 
-  const authenticate = (user, token) => {
+  const authenticate = (user, token, cb) => {
     try {
-      if (!authenticated) {
-        setAuthenticated(true)
-        setToken(token)
-        setUser(user)
-        axios.interceptors.request.use((config) => {
-          config.headers.Authorization = `Bearer ${token}`
-          return config
+      // if (!authenticated) {
+      setAuthenticated(true)
+      setToken(token)
+      setUser(user)
+      axios.interceptors.request.use((config) => {
+        console.log("auth interceptor")
+        config.headers.Authorization = `Bearer ${token}`
+        console.log(config)
+        return config
+      })
+      localStorage.setItem(
+        "state",
+        JSON.stringify({
+          authenticated: true,
+          token,
+          user,
         })
-        localStorage.setItem(
-          "state",
-          JSON.stringify({
-            authenticated: true,
-            token,
-            user,
-          })
-        )
-      }
+      )
+
+      cb()
+      // }
       return true
     } catch (error) {
       return false
@@ -67,21 +69,28 @@ const AppRouter = () => {
   }
 
   const refreshState = () => {
-    axios
-      .get(`/api/${user.name.username}`)
-      .then((res) => {
-        setUser(res.data.user)
-        localStorage.setItem(
-          "state",
-          JSON.stringify({
-            authenticated,
-            token,
-            user,
-          })
-        )
-      })
-      .catch((error) => {})
+    if (user && user.name && user.name.username) {
+      axios
+        .get(`/api/${user.name.username}`)
+        .then((res) => {
+          console.log(res.data.user)
+          setUser(res.data.user)
+          localStorage.setItem(
+            "state",
+            JSON.stringify({
+              authenticated,
+              token,
+              user,
+            })
+          )
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    }
   }
+
+  useEffect(refreshState, [])
 
   const unauthenticate = () => {
     try {
@@ -114,9 +123,10 @@ const AppRouter = () => {
 
       axios.interceptors.request.use((config) => {
         config.headers.Authorization = `Bearer ${state.token}`
-
         return config
       })
+
+      refreshState()
 
       axios.post(`/api/isValidToken`).catch((error) => {
         unauthenticate()
@@ -143,16 +153,28 @@ const AppRouter = () => {
           path="/login"
           exact
           component={(props) => (
-            <Login authenticate={authenticate} {...props} />
+            <Login
+              authenticate={authenticate}
+              refreshState={refreshState}
+              {...props}
+            />
           )}
         />
+        <Route
+          path="/courses/:course"
+          component={(props) => <Course {...props} />}
+        />
+        <Route path="/files/:file" component={(props) => <File {...props} />} />
         <PrivateRoute
           path="/logout"
           exact
           component={() => <Logout unauthenticate={unauthenticate} />}
         />
         <PrivateRoute path="/upload" component={() => <Upload />} />
-        <PrivateRoute path="/join" component={() => <Join />} />
+        <PrivateRoute
+          path="/join"
+          component={() => <Join refreshState={refreshState} />}
+        />
       </Switch>
       <Footer />
     </Fragment>

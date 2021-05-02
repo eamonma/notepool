@@ -33,6 +33,15 @@ router
       user: req.user,
     })
   })
+  .get("/user/:username/all", user.populateContributions, (req, res) => {
+    if (req.error) {
+      return handleError(res, req.error, 401) // unauthorized
+    }
+
+    res.send({
+      user: req.user,
+    })
+  })
   .patch("/me", auth, user.update, (req, res) => {
     if (req.error) {
       return handleError(res, req.error, 401) // unauthorized
@@ -61,6 +70,17 @@ router
 
     senduserAndToken(req, res)
   })
+  .get(
+    "/user/:username/contributions",
+    user.populateContributions,
+    (req, res) => {
+      if (req.error) {
+        return handleError(res, req.error, 400) // bad request
+      }
+
+      res.send(req.user.contributions)
+    }
+  )
   // Forgot Password
   .post("/forgotPassword", user.forgotPassword, (req, res) => {
     res.sendStatus(200)

@@ -31,7 +31,6 @@ methods = {
       email,
       password,
     })
-    console.log(user)
     user.save(async (error, result) => {
       if (error) {
         req.error = error
@@ -42,6 +41,16 @@ methods = {
       }
       next()
     })
+  },
+  async populateContributions(req, res, next) {
+    await User.findOne({
+      "name.username": req.params.username,
+    })
+      .populate("contributions")
+      .exec(function (e, user) {
+        req.user = user
+        next()
+      })
   },
   async head(req, res, next) {
     const userNo = await User.find({

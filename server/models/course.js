@@ -12,7 +12,7 @@ const CourseSchema = mongoose.Schema({
   },
   files: [
     {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
       ref: "File",
     },
   ],

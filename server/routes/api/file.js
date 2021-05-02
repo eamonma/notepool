@@ -18,13 +18,22 @@ const upload = multer({
   },
 })
 
-router.post("/", auth, upload.single("file"), file.create, (req, res) => {
-  if (req.error) {
-    return handleError(res, req.error, 401) // unauthorized
-  }
+router
+  .post("/", auth, upload.single("file"), file.create, (req, res) => {
+    if (req.error) {
+      return handleError(res, req.error, 401) // unauthorized
+    }
 
-  console.log(req.file)
-  res.send(req.publicUrl)
-})
+    console.log(req.file)
+    res.send(req.publicUrl)
+  })
+  .get("/:id", file.get, (req, res) => {
+    if (req.error) {
+      return handleError(res, req.error, 400) // unauthorized
+    }
+    if (req.foundFile) {
+      res.send(req.foundFile)
+    }
+  })
 
 module.exports = router

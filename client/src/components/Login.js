@@ -3,12 +3,14 @@ import axios from "axios"
 import { Redirect, withRouter, Link } from "react-router-dom"
 import ClipLoader from "./ClipLoader"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faArrowCircleRight } from "@fortawesome/free-solid-svg-icons"
+import { faSignInAlt } from "@fortawesome/free-solid-svg-icons"
 
 import { AppContext } from "../AppContext"
 
 const Login = (props) => {
   const [authenticated, setAuthenticated] = useContext(AppContext).authenticated
+  const [token, setToken] = useContext(AppContext).token
+  const [user, setUser] = useContext(AppContext).user
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [error, setError] = useState(false)
@@ -26,9 +28,13 @@ const Login = (props) => {
       })
       .then((res) => {
         const { user, token } = res.data
-        props.authenticate(user, token)
+        console.log("Authenticating", user, token)
+        props.authenticate(user, token, () => {
+          window.location.reload()
+        })
       })
       .catch((error) => {
+        console.log(error)
         setError(true)
         setLoading(false)
         emailField.current.focus()
@@ -69,7 +75,9 @@ const Login = (props) => {
         </div>
         <div className="submit-group">
           <div>
-            <Link to="/register" id="register-link">Register</Link>
+            <Link to="/register" id="register-link">
+              Register
+            </Link>
           </div>
           <div className={`${error && "wrong"} loading-group special`}>
             <button disabled={loading || !email || !password} type="submit">
@@ -78,7 +86,7 @@ const Login = (props) => {
                 {loading ? (
                   <ClipLoader loading={true} />
                 ) : (
-                  <FontAwesomeIcon icon={faArrowCircleRight} />
+                  <FontAwesomeIcon icon={faSignInAlt} />
                 )}
               </div>
             </button>

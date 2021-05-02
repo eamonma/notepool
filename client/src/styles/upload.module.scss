@@ -23,28 +23,31 @@
   form {
     width: 600px;
 
-    .flex-row {
-      flex: 1;
-      width: 50%;
-    }
+    // .flex-row {
+    //   flex: 1;
+    //   width: 50%;
+    // // }
 
     .selector {
       flex: 1;
       width: 50%;
+      //   margin-left: $s;
     }
 
-    .selectorElement {
-      & > div {
-        // font-size: $s !important;
-        line-height: $s + 0.5rem;
-        height: $s;
-        // padding: $xs;
-        // margin: $xs 0;
-        // transition: 0.2s;
-        &:first-child {
-          border: 1px solid red;
-        }
-      }
-    }
+    // .selectorElement {
+    //   & > div:first-of-type {
+    //     // font-size: $s !important;
+    //     line-height: $s + 0.5rem;
+    //     height: $s;
+    //     // padding: $xs;
+    //     // margin: $xs 0;
+    //     // transition: 0.2s;
+    //     & > div:first-of-type {
+    //       //   border: 1px solid red;
+    //     //   line-height: $s + 0.5rem;
+    //     //   height: $s;
+    //     }
+    //   }
+    // }
   }
 }

@@ -32,6 +32,12 @@ const UserSchema = mongoose.Schema({
       type: String,
     },
   ],
+  contributions: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "File",
+    },
+  ],
   email: {
     type: String,
     required: true,

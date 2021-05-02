@@ -38,20 +38,27 @@ const methods = {
     const { name } = req.params
     if (name) {
       try {
-        req.course = await Course.findOne({
-          name: name,
+        await Course.findOne({
+          name,
         })
+          .populate("files")
+          .exec(function (e, course) {
+            req.course = course
+            next()
+          })
       } catch (error) {
         req.error = error
+        next()
       }
     } else {
       req.error = "Not good"
+      next()
     }
-    next()
   },
   async getAll(req, res, next) {
     try {
       req.courses = await Course.find({})
+      console.log(req.courses)
     } catch (error) {
       req.error = error
     }
@@ -64,8 +71,11 @@ const methods = {
         name: course,
       })
       if (courseExists) {
-        req.user.listOfCourses.push(course)
-        await req.user.save()
+        if (!req.user.listOfCourses.includes(course)) {
+          req.user.listOfCourses.push(course)
+          await req.user.save()
+        }
+        req.course = courseExists
       } else req.erorr = "Course does not exist"
     } catch (error) {
       req.error = error

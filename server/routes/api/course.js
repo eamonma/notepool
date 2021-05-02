@@ -32,6 +32,8 @@ router
   .get("/all", Course.getAll, (req, res) => {
     if (req.error) return handleError(res, req.error, 404) // not found
 
+    console.log(req.courses)
+
     res.send(req.courses)
   })
   // R

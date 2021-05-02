@@ -89,20 +89,20 @@ button:not([disabled]):hover {
   // background-color: lighten($color: $p-link, $amount: 10%);
 }
 
-ul {
-  margin: 0 100em 0 0;
-  padding: 0;
-  list-style: none;
+// ul {
+//   margin: 0 100em 0 0;
+//   padding: 0;
+//   list-style: none;
 
-  li {
-    margin: 0.1rem;
+//   li {
+//     margin: 0.1rem;
 
-    a {
-      display: inline-block;
-      width: auto;
-    }
-  }
-}
+//     a {
+//       display: inline-block;
+//       width: auto;
+//     }
+//   }
+// }
 
 .loading-group {
   button {
@@ -128,12 +128,14 @@ form {
   }
 
   .type-select,
-  .select-component {
+  .select-component,
+  input {
     font-size: $s;
-    margin-top: $xs;
+    margin: $xs;
+    margin-left: 0;
 
     & * {
-      box-sizing: content-box;
+      box-sizing: border-box;
     }
   }
 
@@ -148,8 +150,12 @@ form {
     font-size: $s !important;
     line-height: $s + 0.5rem;
     padding: $xs;
-    margin: $xs 0;
+    margin: $xs;
     transition: 0.2s;
+
+    &:first-of-type {
+      margin-left: 0;
+    }
     // min-width: $xl;
     // width: 100%;
   }
@@ -170,6 +176,7 @@ form {
     background: hsl(0, 0%, 93%);
     box-shadow: none;
     border: 2px solid #fff;
+    box-sizing: border-box;
 
     &.danger {
       border: 1px solid $danger;
@@ -202,38 +209,44 @@ form {
     }
   }
 
-  .select-component {
-    div {
-      overflow: hidden;
-    }
+  // .select-component {
+  //   div {
+  //     overflow: hidden;
+  //   }
 
-    & > div {
-      border: 2px solid #fff;
-      background: rgb(246, 246, 246);
-      border-radius: 8px;
-      &:hover {
-        border: inherit;
-        // border-color: rgb(136, 177, 253);
-      }
-    }
-  }
+  //   & > div {
+  //     border: 2px solid #fff;
+  //     background: rgb(246, 246, 246);
+  //     border-radius: 8px;
 
-  ul {
-    flex: 1;
-    width: 100%;
-    max-width: 3 * $xl;
-    & li {
-      display: flex;
-      flex-direction: column;
-      margin: $xs 0;
+  //     display: flex;
+  //     // border: 1px solid red;
+  //     // & > div {
+  //     // }
+  //     &:hover {
+  //       border: inherit;
+  //       // border-color: rgb(136, 177, 253);
+  //     }
+  //   }
+  //   margin: $xs 0;
+  // }
 
-      & > label,
-      legend {
-        font-size: $s + 0.2rem;
-        font-family: $title-font;
-      }
-    }
-  }
+  // ul {
+  //   flex: 1;
+  //   width: 100%;
+  //   max-width: 3 * $xl;
+  //   & li {
+  //     display: flex;
+  //     flex-direction: column;
+  //     margin: $xs 0;
+
+  //     & > label,
+  //     legend {
+  //       font-size: $s + 0.2rem;
+  //       font-family: $title-font;
+  //     }
+  //   }
+  // }
 }
 
 .flex-row {
@@ -317,7 +330,9 @@ form {
   color: rgb(111, 111, 216);
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   font-family: $title-font !important;
 }
 

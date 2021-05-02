@@ -1,13 +1,21 @@
-import React, { useState, useContext, useCallback } from "react"
+import React, { useState, useContext, useCallback, Fragment } from "react"
 import { useDropzone } from "react-dropzone"
-import Select from "react-select"
+// import Select from "react-select"
+import Dropdown from "react-dropdown"
+import "react-dropdown/style.css"
+
 import axios from "axios"
 import { AppContext } from "../AppContext"
 import s from "../styles/upload.module.scss"
 import ClipLoader from "./ClipLoader"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faArrowCircleRight, faUpload } from "@fortawesome/free-solid-svg-icons"
+import {
+  faArrowCircleRight,
+  faUpload,
+  faFileUpload,
+} from "@fortawesome/free-solid-svg-icons"
 import { withRouter } from "react-router-dom"
+import { css } from "@emotion/react"
 
 const Upload = () => {
   const [user] = useContext(AppContext).user
@@ -37,7 +45,7 @@ const Upload = () => {
     setError(false)
     const formData = new FormData()
     formData.append("title", title)
-    formData.append("course", course)
+    formData.append("course", course.value)
     formData.append("file", file[0])
 
     axios
@@ -52,11 +60,41 @@ const Upload = () => {
       })
   }
 
+  const customStyles = {
+    option: (provided, state) => ({
+      ...provided,
+      // borderBottom: "1px dotted pink",
+      // color: state.isSelected ? "red" : "blue",
+      padding: 20,
+    }),
+    control: () => ({
+      // none of react-select's styles are passed to <Control />
+      // width: 200,
+    }),
+    // singleValue: (provided, state) => {
+    //   // const opacity = state.isDisabled ? 0.5 : 1
+    //   // const transition = "opacity 300ms"
+    //   // return { ...provided, opacity, transition }
+    // },
+  }
+
   return (
     <div className={`${s.Upload} form component`}>
       <h1>Contribute as {user.name && user.name.username}</h1>
       <form onSubmit={handleSubmit}>
         <div className={`${s.top} flex-row`}>
+          <div className={s.selector}>
+            <label htmlFor="course">Course</label>
+            <Dropdown
+              value={course}
+              onChange={setCourse}
+              options={options}
+              isDisabled={loading}
+              isSearchable={false}
+              // styles={customStyles}
+              className="select-component"
+            />
+          </div>
           <div>
             <label htmlFor="title">Title</label>
             <input
@@ -67,18 +105,6 @@ const Upload = () => {
                 setTitle(target.value)
               }}
               disabled={loading}
-            />
-          </div>
-          <div className={s.selector}>
-            <label htmlFor="course">Course</label>
-            <Select
-              defaultValue={course}
-              value={course}
-              onChange={setCourse}
-              options={options}
-              isDisabled={loading}
-              isSearchable
-              className={s.selectorElement}
             />
           </div>
         </div>
@@ -114,7 +140,7 @@ const Upload = () => {
                 {loading ? (
                   <ClipLoader loading={true} />
                 ) : (
-                  <FontAwesomeIcon icon={faArrowCircleRight} />
+                  <FontAwesomeIcon icon={faFileUpload} />
                 )}
               </div>
             </button>

@@ -1,4 +1,5 @@
 const File = require("../models/file")
+const Course = require("../models/course")
 const mongoose = require("mongoose")
 const base64url = require("base64url")
 const { v4 } = require("uuid")
@@ -29,28 +30,43 @@ methods = {
 
     if (!req.file) return res.status(400).send("No file uploaded.")
 
-    const blob = bucket.file(`${v4()}-${req.file.originalname}`)
+    const _id = new mongoose.Types.ObjectId()
+
+    const blob = bucket.file(
+      `${course}-${_id.toHexString()}-${req.file.originalname}`
+    )
     const blobStream = blob.createWriteStream()
 
     blobStream.on("error", (err) => {
       next(err)
     })
 
-    blobStream.on("finish", () => {
+    blobStream.on("finish", async () => {
       // The public URL can be used to directly access the file via HTTP.
       const publicUrl = format(
-        `https://storage.googleapis.com/${bucket.name}/${blob.name}`
+        `https://${bucket.name}.storage.googleapis.com/${blob.name}`
       )
+
       req.publicUrl = publicUrl
       const file = File({
-        _id: new mongoose.Types.ObjectId(),
+        _id,
         title,
         course,
         url: req.publicUrl,
-        author: req.user.username,
+        author: req.user.name.username,
       })
 
-      file.save(async (error, result) => {
+      req.user.contributions.push(_id)
+      await req.user.save()
+
+      const courseToAddTo = await Course.findOne({
+        name: course,
+      })
+
+      courseToAddTo.files.push(_id)
+      await courseToAddTo.save()
+
+      await file.save(async (error, result) => {
         if (error) {
           req.error = error
         }
@@ -60,7 +76,6 @@ methods = {
 
     blobStream.end(req.file.buffer)
   },
-
   /*
    * delete
    *
@@ -73,6 +88,10 @@ methods = {
     } catch (error) {
       req.error = error
     }
+    next()
+  },
+  async get(req, res, next) {
+    req.foundFile = await File.findById(req.params.id)
     next()
   },
   // only 1 file, so no deleteAll.
